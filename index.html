@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Water Level</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="column s12">
+                <div class="card">
+                    <div class="card-content">
+                        <div id="level">The water Level is : </div>
+                        <div id="temp" ></div>
+                    </div>
+                    <div class="card-action">
+                        <button class="btn" onclick="handle()">Update</button>
+                        <button class="btn" onclick="on()">Switch On</button>
+                        <button class="btn" onclick="off()">Switch Off</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>   
+        function handle(){
+            setKey("Your API Key","Your Device ID");
+            serialWR('getAnalogValues','10','temp');
+            setTimeout(()=>{
+                var el = document.getElementById("level");
+                var arr = temp.innerText.substring(11).split(",");
+                if(arr[0]<100){
+                    el.innerText += " Below 20%";
+                }
+                else if(arr[4]>100)
+                {
+                    el.innerText += " 100%";
+                }
+                else{
+                    if(arr[3]>100)
+                        el.innerText += " 80%";
+                    else if(arr[2]>100)
+                        el.innerText += " 60%";
+                    else if(arr[1]>100)
+                        el.innerText += " 40%";
+                    else if(arr[0]>100)
+                        el.innerText += " 20%";
+                }
+            },1500);
+        }
+        function on(){
+            serialWR('pumpOn','10','temp');
+        }
+        function off(){
+            serialWR('pumpOff','10','temp');
+        }
+    </script>
+    <script type="text/javascript" src="https://cloud.boltiot.com/static/js/boltCommands.js"></script>
+</body>
+</html>

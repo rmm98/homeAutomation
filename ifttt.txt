@@ -1,0 +1,2 @@
+https://cloud.boltiot.com/remote/ Your API Key /serialWR?data=pumpOn&deviceName= Your Device ID
+https://cloud.boltiot.com/remote/ Your API Key /serialWR?data=pumpOff&deviceName= Your Device ID
